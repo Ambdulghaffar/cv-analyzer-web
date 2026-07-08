@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Toaster } from "@/components/ui/sonner";
+// @ts-expect-error -- handled by Next.js CSS support
 import "./globals.css";
 
 const geistSans = Geist({
