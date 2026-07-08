@@ -7,7 +7,7 @@ import { z } from "zod"
 import { Loader2 } from "lucide-react"
 
 import { AuthLayout } from "@/components/auth-layout"
-import { ForgotPasswordMockup } from "@/components/forgot-password-mockup"
+import { ForgotPasswordIllustration } from "@/components/forgot-password-illustration"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field"
@@ -38,8 +38,8 @@ export default function ForgotPasswordPage() {
       footerText="Vous vous souvenez de votre mot de passe ?"
       footerLinkText="Retour à la connexion"
       footerLinkHref="/login"
-      panelHeadline="On vous aide à retrouver l'accès à votre compte."
-      panel={<ForgotPasswordMockup />}
+      panel={<ForgotPasswordIllustration />}
+      panelVariant="light"
     >
       {submitted ? (
         <p className="text-sm text-muted-foreground">
