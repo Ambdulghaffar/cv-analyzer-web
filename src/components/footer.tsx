@@ -61,13 +61,23 @@ function Footer() {
 
   return (
     <footer className="border-t border-border">
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 py-10 text-center sm:px-6 lg:px-8">
-        <span className="text-lg font-semibold tracking-tight">CV Analyzer AI</span>
-        <p className="max-w-md text-sm text-muted-foreground">
-          Analysez et améliorez votre CV en quelques secondes grâce à l&apos;intelligence artificielle.
-        </p>
+      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-6 px-4 py-6 text-center sm:px-6 lg:grid-cols-3 lg:px-8 lg:text-left">
+        <div className="flex flex-col items-center gap-1 lg:items-start">
+          <span className="text-sm font-semibold tracking-tight">CV Analyzer AI</span>
+          <p className="max-w-xs text-xs text-muted-foreground">
+            Analysez et améliorez votre CV en quelques secondes grâce à l&apos;intelligence artificielle.
+          </p>
+        </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col items-center justify-center gap-1">
+          <p className="text-xs text-muted-foreground">
+            {/* Portfolio URL à ajouter une fois déployé: <Link href="https://TODO-portfolio-url">Ambdulghaffar Ahamadi</Link> */}
+            Créé par Ambdulghaffar Ahamadi
+          </p>
+          <p className="text-xs text-muted-foreground">© {year} CV Analyzer AI. Tous droits réservés.</p>
+        </div>
+
+        <div className="flex items-center justify-center gap-4 lg:justify-end">
           {socialLinks.map(({ label, href, icon: Icon }) => (
             <a
               key={label}
@@ -81,13 +91,6 @@ function Footer() {
             </a>
           ))}
         </div>
-
-        <p className="text-xs text-muted-foreground">
-          {/* Portfolio URL à ajouter une fois déployé: <Link href="https://TODO-portfolio-url">Ambdulghaffar Ahamadi</Link> */}
-          Créé par Ambdulghaffar Ahamadi
-        </p>
-
-        <p className="text-xs text-muted-foreground">© {year} CV Analyzer AI. Tous droits réservés.</p>
       </div>
     </footer>
   )
