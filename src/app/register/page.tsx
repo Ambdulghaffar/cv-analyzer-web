@@ -1,11 +1,13 @@
 "use client"
 
+import { useRouter } from "next/navigation"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { toast } from "sonner"
 import { Loader2 } from "lucide-react"
 
+import { createClient } from "@/lib/supabase/client"
 import { AuthLayout } from "@/components/auth-layout"
 import { RegisterIllustration } from "@/components/register-illustration"
 import { GoogleAuthButton } from "@/components/google-auth-button"
@@ -36,6 +38,7 @@ const registerSchema = z.object({
 type RegisterValues = z.infer<typeof registerSchema>
 
 export default function RegisterPage() {
+  const router = useRouter()
   const form = useForm<RegisterValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -46,11 +49,37 @@ export default function RegisterPage() {
     },
   })
 
-  const onSubmit = form.handleSubmit(async () => {
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    toast.success("Compte créé avec succès !")
-    form.reset()
+  const onSubmit = form.handleSubmit(async (values) => {
+    const supabase = createClient()
+    const { error } = await supabase.auth.signUp({
+      email: values.email,
+      password: values.password,
+      options: {
+        data: {
+          full_name: values.name,
+          role: values.role,
+        },
+      },
+    })
+
+    if (error) {
+      toast.error(error.message)
+      return
+    }
+
+    toast.success("Vérifiez votre boîte mail pour confirmer votre compte.")
+    router.push("/login")
   })
+
+  const handleGoogleSignUp = async () => {
+    const supabase = createClient()
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    })
+  }
 
   return (
     <AuthLayout
@@ -64,7 +93,7 @@ export default function RegisterPage() {
       scrollable
     >
       <div className="flex flex-col gap-6">
-        <GoogleAuthButton />
+        <GoogleAuthButton onClick={handleGoogleSignUp} />
 
         <FieldSeparator>ou</FieldSeparator>
 

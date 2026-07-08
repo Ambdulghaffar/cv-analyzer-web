@@ -1,12 +1,14 @@
 "use client"
 
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { toast } from "sonner"
 import { Loader2 } from "lucide-react"
 
+import { createClient } from "@/lib/supabase/client"
 import { AuthLayout } from "@/components/auth-layout"
 import { LoginIllustration } from "@/components/login-illustration"
 import { GoogleAuthButton } from "@/components/google-auth-button"
@@ -23,16 +25,42 @@ const loginSchema = z.object({
 type LoginValues = z.infer<typeof loginSchema>
 
 export default function LoginPage() {
+  const router = useRouter()
   const form = useForm<LoginValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: "", password: "" },
   })
 
-  const onSubmit = form.handleSubmit(async () => {
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    toast.success("Connexion réussie !")
-    form.reset()
+  const onSubmit = form.handleSubmit(async (values) => {
+    const supabase = createClient()
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: values.email,
+      password: values.password,
+    })
+
+    if (error) {
+      toast.error(error.message)
+      return
+    }
+
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", data.user.id)
+      .single()
+
+    router.push(profile?.role === "recruiter" ? "/dashboard/recruiter" : "/dashboard/candidate")
   })
+
+  const handleGoogleSignIn = async () => {
+    const supabase = createClient()
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    })
+  }
 
   return (
     <AuthLayout
@@ -45,7 +73,7 @@ export default function LoginPage() {
       panelVariant="light"
     >
       <div className="flex flex-col gap-6">
-        <GoogleAuthButton />
+        <GoogleAuthButton onClick={handleGoogleSignIn} />
 
         <FieldSeparator>ou</FieldSeparator>
 

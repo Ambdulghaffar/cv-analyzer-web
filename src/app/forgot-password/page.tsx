@@ -4,8 +4,10 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
+import { toast } from "sonner"
 import { Loader2 } from "lucide-react"
 
+import { createClient } from "@/lib/supabase/client"
 import { AuthLayout } from "@/components/auth-layout"
 import { ForgotPasswordIllustration } from "@/components/forgot-password-illustration"
 import { Button } from "@/components/ui/button"
@@ -26,8 +28,17 @@ export default function ForgotPasswordPage() {
     defaultValues: { email: "" },
   })
 
-  const onSubmit = form.handleSubmit(async () => {
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+  const onSubmit = form.handleSubmit(async (values) => {
+    const supabase = createClient()
+    const { error } = await supabase.auth.resetPasswordForEmail(values.email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    })
+
+    if (error) {
+      toast.error(error.message)
+      return
+    }
+
     setSubmitted(true)
   })
 
