@@ -1,8 +1,11 @@
 import { redirect } from "next/navigation"
 
 import { createClient } from "@/lib/supabase/server"
+import { getCurrentProfile } from "@/lib/supabase/queries"
+import { ROUTES } from "@/lib/constants"
 import { LogoutButton } from "@/components/logout-button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import type { Profile } from "@/types"
 
 export default async function CandidateDashboardPage() {
   const supabase = await createClient()
@@ -12,14 +15,10 @@ export default async function CandidateDashboardPage() {
   } = await supabase.auth.getUser()
 
   if (!user) {
-    redirect("/login")
+    redirect(ROUTES.login)
   }
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("full_name, role")
-    .eq("id", user.id)
-    .single()
+  const profile: Profile | null = await getCurrentProfile()
 
   return (
     <div className="flex min-h-screen items-center justify-center p-4">

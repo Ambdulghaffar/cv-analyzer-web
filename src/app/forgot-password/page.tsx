@@ -8,6 +8,7 @@ import { toast } from "sonner"
 import { Loader2 } from "lucide-react"
 
 import { createClient } from "@/lib/supabase/client"
+import { ROUTES } from "@/lib/constants"
 import { AuthLayout } from "@/components/auth-layout"
 import { ForgotPasswordIllustration } from "@/components/forgot-password-illustration"
 import { Button } from "@/components/ui/button"
@@ -31,7 +32,7 @@ export default function ForgotPasswordPage() {
   const onSubmit = form.handleSubmit(async (values) => {
     const supabase = createClient()
     const { error } = await supabase.auth.resetPasswordForEmail(values.email, {
-      redirectTo: `${window.location.origin}/reset-password`,
+      redirectTo: `${window.location.origin}${ROUTES.resetPassword}`,
     })
 
     if (error) {
@@ -53,7 +54,7 @@ export default function ForgotPasswordPage() {
       panelVariant="light"
     >
       {submitted ? (
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm font-semibold text-center">
           Si un compte existe avec cet email, vous recevrez un lien de réinitialisation.
         </p>
       ) : (

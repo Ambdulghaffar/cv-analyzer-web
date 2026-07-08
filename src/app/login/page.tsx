@@ -9,6 +9,7 @@ import { toast } from "sonner"
 import { Loader2 } from "lucide-react"
 
 import { createClient } from "@/lib/supabase/client"
+import { ROUTES } from "@/lib/constants"
 import { AuthLayout } from "@/components/auth-layout"
 import { LoginIllustration } from "@/components/login-illustration"
 import { GoogleAuthButton } from "@/components/google-auth-button"
@@ -16,6 +17,7 @@ import { PasswordInput } from "@/components/password-input"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Field, FieldError, FieldGroup, FieldLabel, FieldSeparator } from "@/components/ui/field"
+import { getLoginErrorMessage } from "@/lib/supabase/errors"
 
 const loginSchema = z.object({
   email: z.string().email("Adresse email invalide"),
@@ -39,7 +41,7 @@ export default function LoginPage() {
     })
 
     if (error) {
-      toast.error(error.message)
+      toast.error(getLoginErrorMessage(error))
       return
     }
 
@@ -49,7 +51,8 @@ export default function LoginPage() {
       .eq("id", data.user.id)
       .single()
 
-    router.push(profile?.role === "recruiter" ? "/dashboard/recruiter" : "/dashboard/candidate")
+    toast.success("Connexion réussie. Ravi de vous revoir !")
+    router.push(profile?.role === "recruiter" ? ROUTES.dashboard.recruiter : ROUTES.dashboard.candidate)
   })
 
   const handleGoogleSignIn = async () => {

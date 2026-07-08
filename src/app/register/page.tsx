@@ -8,6 +8,7 @@ import { toast } from "sonner"
 import { Loader2 } from "lucide-react"
 
 import { createClient } from "@/lib/supabase/client"
+import { ROUTES } from "@/lib/constants"
 import { AuthLayout } from "@/components/auth-layout"
 import { RegisterIllustration } from "@/components/register-illustration"
 import { GoogleAuthButton } from "@/components/google-auth-button"
@@ -25,6 +26,7 @@ import {
   FieldTitle,
 } from "@/components/ui/field"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { getRegisterErrorMessage } from "@/lib/supabase/errors"
 
 const registerSchema = z.object({
   name: z.string().min(1, "Le nom complet est requis"),
@@ -63,12 +65,12 @@ export default function RegisterPage() {
     })
 
     if (error) {
-      toast.error(error.message)
+      toast.error(getRegisterErrorMessage(error))
       return
     }
 
     toast.success("Vérifiez votre boîte mail pour confirmer votre compte.")
-    router.push("/login")
+    router.push(ROUTES.login)
   })
 
   const handleGoogleSignUp = async () => {

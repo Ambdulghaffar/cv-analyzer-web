@@ -8,6 +8,7 @@ import { toast } from "sonner"
 import { Loader2 } from "lucide-react"
 
 import { createClient } from "@/lib/supabase/client"
+import { ROUTES } from "@/lib/constants"
 import { AuthLayout } from "@/components/auth-layout"
 import { ForgotPasswordIllustration } from "@/components/forgot-password-illustration"
 import { PasswordInput } from "@/components/password-input"
@@ -38,7 +39,7 @@ export default function ResetPasswordPage() {
     }
 
     toast.success("Mot de passe mis à jour avec succès.")
-    router.push("/login")
+    router.push(ROUTES.login)
   })
 
   return (
