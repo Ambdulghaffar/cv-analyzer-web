@@ -7,7 +7,7 @@ import { toast } from "sonner"
 import { Loader2 } from "lucide-react"
 
 import { AuthLayout } from "@/components/auth-layout"
-import { RegisterMockup } from "@/components/register-mockup"
+import { RegisterIllustration } from "@/components/register-illustration"
 import { GoogleAuthButton } from "@/components/google-auth-button"
 import { PasswordInput } from "@/components/password-input"
 import { Button } from "@/components/ui/button"
@@ -59,8 +59,8 @@ export default function RegisterPage() {
       footerText="Déjà un compte ?"
       footerLinkText="Se connecter"
       footerLinkHref="/login"
-      panelHeadline="Trouvez le match parfait entre votre profil et vos opportunités."
-      panel={<RegisterMockup />}
+      panel={<RegisterIllustration />}
+      panelVariant="light"
       scrollable
     >
       <div className="flex flex-col gap-6">
