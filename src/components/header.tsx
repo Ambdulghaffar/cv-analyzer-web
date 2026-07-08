@@ -7,8 +7,7 @@ import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { cn } from "@/lib/utils"
-
-const authRoutes = ["/register", "/login", "/forgot-password"]
+import { authRoutes } from "@/lib/routes"
 
 const navLinks = [
   { href: "/", label: "Accueil" },

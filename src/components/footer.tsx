@@ -1,4 +1,10 @@
+"use client"
+
+import { usePathname } from "next/navigation"
+
 import { GithubIcon, LinkedinIcon } from "@/components/brand-icons"
+import { MinimalFooter } from "@/components/minimal-footer"
+import { authRoutes } from "@/lib/routes"
 
 const socialLinks = [
   {
@@ -14,7 +20,12 @@ const socialLinks = [
 ]
 
 function Footer() {
+  const pathname = usePathname()
   const year = new Date().getFullYear()
+
+  if (authRoutes.includes(pathname)) {
+    return <MinimalFooter />
+  }
 
   return (
     <footer className="border-t border-border">

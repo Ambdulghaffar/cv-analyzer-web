@@ -68,7 +68,7 @@ export default function LoginPage() {
                 <FieldLabel htmlFor="password">Mot de passe</FieldLabel>
                 <Link
                   href="/forgot-password"
-                  className="ml-auto text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+                  className="ml-auto text-sm text-muted-foreground underline-offset-4 hover:text-blue-500 hover:underline"
                 >
                   Mot de passe oublié ?
                 </Link>
