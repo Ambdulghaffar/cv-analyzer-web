@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation"
 
 import { GithubIcon, LinkedinIcon } from "@/components/brand-icons"
-import { MinimalFooter } from "@/components/minimal-footer"
 import { authRoutes } from "@/lib/routes"
 
 const socialLinks = [
@@ -24,7 +23,7 @@ function Footer() {
   const year = new Date().getFullYear()
 
   if (authRoutes.includes(pathname)) {
-    return <MinimalFooter />
+    return null
   }
 
   return (

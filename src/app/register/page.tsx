@@ -61,6 +61,7 @@ export default function RegisterPage() {
       footerLinkHref="/login"
       panelHeadline="Trouvez le match parfait entre votre profil et vos opportunités."
       panel={<RegisterMockup />}
+      scrollable
     >
       <div className="flex flex-col gap-6">
         <GoogleAuthButton />
