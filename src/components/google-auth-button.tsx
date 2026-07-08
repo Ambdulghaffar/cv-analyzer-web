@@ -28,7 +28,7 @@ function GoogleIcon(props: SVGProps<SVGSVGElement>) {
 
 function GoogleAuthButton({ className, ...props }: React.ComponentProps<typeof Button>) {
   return (
-    <Button type="button" variant="outline" className={cn("w-full", className)} {...props}>
+    <Button type="button" variant="secondary" className={cn("w-full", className)} {...props}>
       <GoogleIcon className="size-4" />
       Continuer avec Google
     </Button>
