@@ -4,6 +4,7 @@ import { Zap, Target, Gift, Users, Upload, Sparkles, FileCheck2 } from "lucide-r
 import { Button } from "@/components/ui/button"
 import { FeatureCard } from "@/components/feature-card"
 import { ProductMockup } from "@/components/product-mockup"
+import { SectionHeading } from "@/components/section-heading"
 
 const values = [
   {
@@ -85,10 +86,11 @@ export default function Home() {
 
       <section className="border-t border-border">
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
-          <div className="mb-12 text-center">
-            <h2 className="text-3xl font-semibold tracking-tight">Comment ça marche</h2>
-            <p className="mt-2 text-muted-foreground">Trois étapes simples pour analyser votre CV.</p>
-          </div>
+          <SectionHeading
+            title="Comment ça marche"
+            subtitle="Trois étapes simples pour analyser votre CV."
+            className="mb-12"
+          />
 
           <div className="grid gap-10 sm:grid-cols-3">
             {steps.map((step, index) => (
@@ -107,10 +109,11 @@ export default function Home() {
 
       <section className="border-t border-border bg-muted/30">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-20 text-center sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-semibold tracking-tight">Prêt à optimiser votre candidature ?</h2>
-          <p className="max-w-md text-muted-foreground">
-            Créez votre compte gratuitement et obtenez votre premier score de compatibilité dès maintenant.
-          </p>
+          <SectionHeading
+            title="Prêt à optimiser votre candidature ?"
+            subtitle="Créez votre compte gratuitement et obtenez votre premier score de compatibilité dès maintenant."
+            subtitleClassName="max-w-md"
+          />
           <Button size="lg" render={<Link href="/register" />}>
             Commencer gratuitement
           </Button>
