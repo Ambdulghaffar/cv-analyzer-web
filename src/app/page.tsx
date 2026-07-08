@@ -1,9 +1,9 @@
 import Link from "next/link"
+import Image from "next/image"
 import { Zap, Target, Gift, Users, Upload, Sparkles, FileCheck2 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { FeatureCard } from "@/components/feature-card"
-import { ProductMockup } from "@/components/product-mockup"
 import { SectionHeading } from "@/components/section-heading"
 
 const values = [
@@ -70,7 +70,14 @@ export default function Home() {
         </div>
 
         <div className="flex justify-center lg:justify-end">
-          <ProductMockup />
+          <Image
+            src="/images/hero-illustration.png"
+            alt="Illustration d'analyse de CV par intelligence artificielle"
+            width={1408}
+            height={768}
+            priority
+            className="h-auto w-full max-w-lg rounded-2xl shadow-xl"
+          />
         </div>
       </section>
 
