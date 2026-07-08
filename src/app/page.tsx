@@ -1,10 +1,10 @@
 import Link from "next/link"
-import Image from "next/image"
 import { Zap, Target, Gift, Users, Upload, Sparkles, FileCheck2 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { FeatureCard } from "@/components/feature-card"
 import { SectionHeading } from "@/components/section-heading"
+import { ProductMockup } from "@/components/product-mockup"
 
 const values = [
   {
@@ -50,10 +50,21 @@ const steps = [
 export default function Home() {
   return (
     <main className="flex-1">
-      <section className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8 lg:py-28">
+      <section className="relative mx-auto grid max-w-6xl gap-12 overflow-hidden px-4 py-20 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8 lg:py-28">
+        <div className="pointer-events-none absolute -top-32 -left-24 -z-10 size-96 rounded-full bg-blue-400/20 blur-3xl dark:bg-blue-500/10" />
+        <div className="pointer-events-none absolute -bottom-32 -right-24 -z-10 size-96 rounded-full bg-blue-300/20 blur-3xl dark:bg-blue-400/10" />
+
         <div className="flex flex-col items-start gap-6 text-left">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1 text-sm font-medium text-blue-600 dark:bg-blue-500/15 dark:text-blue-300">
+            <Sparkles className="size-3.5" />
+            Analyse CV propulsée par l&apos;IA
+          </span>
+
           <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-            Le matching CV/emploi, propulsé par l&apos;IA
+            Le matching CV/emploi,{" "}
+            <span className="bg-linear-to-r from-blue-700 to-blue-500 bg-clip-text text-transparent dark:from-blue-400 dark:to-blue-300">
+              propulsé par l&apos;IA
+            </span>
           </h1>
           <p className="max-w-md text-lg text-muted-foreground">
             Analysez la compatibilité entre votre CV et une offre d&apos;emploi en quelques
@@ -70,14 +81,7 @@ export default function Home() {
         </div>
 
         <div className="flex justify-center lg:justify-end">
-          <Image
-            src="/images/hero-illustration.png"
-            alt="Illustration d'analyse de CV par intelligence artificielle"
-            width={1408}
-            height={768}
-            priority
-            className="h-auto w-full max-w-lg rounded-2xl shadow-xl"
-          />
+          <ProductMockup />
         </div>
       </section>
 

@@ -31,9 +31,9 @@ function AuthLayout({
 }: AuthLayoutProps) {
   return (
     <div className="flex w-full flex-1 flex-col lg:min-h-160 lg:flex-row">
-      <div className="relative hidden overflow-hidden bg-linear-to-br from-primary to-primary/75 text-primary-foreground lg:flex lg:w-1/2 lg:flex-col lg:justify-center lg:gap-8 lg:px-16">
-        <div className="pointer-events-none absolute -top-24 -right-24 size-72 rounded-full bg-accent/30 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-24 -left-10 size-72 rounded-full bg-accent/20 blur-3xl" />
+      <div className="relative hidden overflow-hidden bg-linear-to-br from-blue-600 to-blue-900 text-white dark:from-blue-500 dark:to-blue-950 lg:flex lg:w-1/2 lg:flex-col lg:justify-center lg:gap-8 lg:px-16">
+        <div className="pointer-events-none absolute -top-24 -right-24 size-72 rounded-full bg-blue-400/30 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-24 -left-10 size-72 rounded-full bg-blue-300/20 blur-3xl" />
 
         <div className="relative flex flex-col gap-3">
           <span className="text-lg font-semibold tracking-tight">CV Analyzer AI</span>

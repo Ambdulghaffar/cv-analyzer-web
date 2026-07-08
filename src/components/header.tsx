@@ -6,8 +6,14 @@ import { ArrowLeft } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { cn } from "@/lib/utils"
 
 const authRoutes = ["/register", "/login", "/forgot-password"]
+
+const navLinks = [
+  { href: "/", label: "Accueil" },
+  { href: "/about", label: "À propos" },
+]
 
 function Header() {
   const pathname = usePathname()
@@ -35,17 +41,27 @@ function Header() {
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm font-medium text-muted-foreground md:flex">
-          <Link href="/" className="transition-colors hover:text-foreground">
-            Accueil
-          </Link>
-          <Link href="/about" className="transition-colors hover:text-foreground">
-            À propos
-          </Link>
+          {navLinks.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className={cn(
+                "transition-colors hover:text-foreground",
+                pathname === href && "font-semibold text-primary hover:text-primary"
+              )}
+            >
+              {label}
+            </Link>
+          ))}
         </nav>
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <Button variant="outline" render={<Link href="/login" />}>
+          <Button
+            variant="outline"
+            className="hover:border-primary hover:text-primary"
+            render={<Link href="/login" />}
+          >
             Connexion
           </Button>
           <Button render={<Link href="/register" />}>Inscription</Button>
