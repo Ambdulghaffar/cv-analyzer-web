@@ -4,6 +4,7 @@ export const ROUTES = {
   register: "/register",
   forgotPassword: "/forgot-password",
   resetPassword: "/reset-password",
+  onboardingRole: "/onboarding/role",
   dashboard: {
     candidate: "/dashboard/candidate",
     recruiter: "/dashboard/recruiter",

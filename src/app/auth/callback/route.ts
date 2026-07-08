@@ -9,10 +9,22 @@ export async function GET(request: NextRequest) {
 
   if (code) {
     const supabase = await createClient()
-    const { error } = await supabase.auth.exchangeCodeForSession(code)
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code)
 
     if (!error) {
-      return NextResponse.redirect(`${origin}${ROUTES.dashboard.candidate}`)
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("role, role_selected")
+        .eq("id", data.user.id)
+        .single()
+
+      if (!profile?.role_selected) {
+        return NextResponse.redirect(`${origin}${ROUTES.onboardingRole}`)
+      }
+
+      return NextResponse.redirect(
+        `${origin}${profile.role === "recruiter" ? ROUTES.dashboard.recruiter : ROUTES.dashboard.candidate}`
+      )
     }
   }
 
