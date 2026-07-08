@@ -8,7 +8,7 @@ import { toast } from "sonner"
 import { Loader2 } from "lucide-react"
 
 import { AuthLayout } from "@/components/auth-layout"
-import { LoginMockup } from "@/components/login-mockup"
+import { LoginIllustration } from "@/components/login-illustration"
 import { GoogleAuthButton } from "@/components/google-auth-button"
 import { PasswordInput } from "@/components/password-input"
 import { Button } from "@/components/ui/button"
@@ -41,8 +41,8 @@ export default function LoginPage() {
       footerText="Pas encore de compte ?"
       footerLinkText="S'inscrire"
       footerLinkHref="/register"
-      panelHeadline="Reprenez là où vous vous étiez arrêté."
-      panel={<LoginMockup />}
+      panel={<LoginIllustration />}
+      panelVariant="light"
     >
       <div className="flex flex-col gap-6">
         <GoogleAuthButton />

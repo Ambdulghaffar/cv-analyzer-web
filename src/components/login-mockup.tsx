@@ -3,12 +3,17 @@ import { Badge } from "@/components/ui/badge"
 import { BrowserFrame } from "@/components/browser-frame"
 import { CircularScore } from "@/components/circular-score"
 import { CheckCircle2 } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 const validatedSkills = ["React", "TypeScript", "Node.js"]
 
-function LoginMockup() {
+interface LoginMockupProps {
+  className?: string
+}
+
+function LoginMockup({ className }: LoginMockupProps) {
   return (
-    <BrowserFrame url="cv-analyzer.ai/results" className="max-w-lg">
+    <BrowserFrame url="cv-analyzer.ai/results" className={cn("max-w-lg", className)}>
       <Card>
         <CardHeader>
           <CardTitle>Dernière analyse</CardTitle>

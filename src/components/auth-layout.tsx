@@ -18,10 +18,12 @@ interface AuthLayoutProps {
   footerText: string
   footerLinkText: string
   footerLinkHref: string
-  panelHeadline: string
+  panelHeadline?: string
   panel: React.ReactNode
   /** Allow natural page scroll instead of forcing everything into one viewport. */
   scrollable?: boolean
+  /** "gradient" (default) is the deep blue panel; "light" mirrors the Home hero background. */
+  panelVariant?: "gradient" | "light"
 }
 
 function AuthLayout({
@@ -34,25 +36,42 @@ function AuthLayout({
   panelHeadline,
   panel,
   scrollable = false,
+  panelVariant = "gradient",
 }: AuthLayoutProps) {
+  const isLight = panelVariant === "light"
+
   return (
     <div className={cn("flex min-h-screen flex-col", !scrollable && "lg:h-screen")}>
       <div className={cn("flex flex-1 flex-col lg:flex-row", !scrollable && "lg:min-h-0")}>
         <div
           className={cn(
-            "relative hidden overflow-hidden bg-linear-to-br from-blue-600 to-blue-900 text-white dark:from-blue-500 dark:to-blue-950 lg:flex lg:w-1/2 lg:flex-col lg:justify-center lg:gap-6 lg:px-16",
+            "relative hidden overflow-hidden lg:flex lg:w-1/2 lg:flex-col lg:gap-6",
+            isLight
+              ? "bg-background text-foreground"
+              : "bg-linear-to-br from-blue-600 to-blue-900 text-white lg:justify-center lg:px-16 dark:from-blue-500 dark:to-blue-950",
             scrollable && "lg:sticky lg:top-0 lg:h-screen lg:self-start"
           )}
         >
-          <div className="pointer-events-none absolute -top-24 -right-24 size-72 rounded-full bg-blue-400/30 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-24 -left-10 size-72 rounded-full bg-blue-300/20 blur-3xl" />
+          {isLight ? (
+            <>
+              <div className="pointer-events-none absolute -top-32 -left-24 -z-10 size-96 rounded-full bg-blue-400/20 blur-3xl dark:bg-blue-500/10" />
+              <div className="pointer-events-none absolute -right-24 -bottom-32 -z-10 size-96 rounded-full bg-blue-300/20 blur-3xl dark:bg-blue-400/10" />
+            </>
+          ) : (
+            <>
+              <div className="pointer-events-none absolute -top-24 -right-24 size-72 rounded-full bg-blue-400/30 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-24 -left-10 size-72 rounded-full bg-blue-300/20 blur-3xl" />
+            </>
+          )}
 
-          <div className="relative flex flex-col gap-3">
-            <span className="text-lg font-semibold tracking-tight">CV Analyzer AI</span>
-            <h2 className="text-3xl font-semibold leading-tight text-balance">{panelHeadline}</h2>
-          </div>
+          {panelHeadline && (
+            <div className="relative flex flex-col gap-3">
+              <span className="text-lg font-semibold tracking-tight">CV Analyzer AI</span>
+              <h2 className="text-3xl font-semibold leading-tight text-balance">{panelHeadline}</h2>
+            </div>
+          )}
 
-          <div className="relative">{panel}</div>
+          <div className={cn("relative", isLight && "flex flex-1 flex-col")}>{panel}</div>
         </div>
 
         <div
