@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
 import { Toaster } from "@/components/ui/sonner";
 // @ts-expect-error -- handled by Next.js CSS support
 import "./globals.css";
@@ -35,9 +33,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-          <Header />
           {children}
-          <Footer />
           <Toaster />
         </ThemeProvider>
       </body>

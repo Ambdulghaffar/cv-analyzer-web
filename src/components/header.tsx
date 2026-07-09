@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Logo } from "@/components/logo"
 import { cn } from "@/lib/utils"
-import { authRoutes } from "@/lib/routes"
 
 const navLinks = [
   { href: "/", label: "Accueil" },
@@ -16,11 +15,6 @@ const navLinks = [
 
 function Header() {
   const pathname = usePathname()
-  const isAuthRoute = authRoutes.includes(pathname)
-
-  if (isAuthRoute) {
-    return null
-  }
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-sm">
