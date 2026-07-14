@@ -3,12 +3,13 @@ import { cn } from "@/lib/utils"
 interface CircularScoreProps {
   score: number
   className?: string
+  indicatorClassName?: string
 }
 
 const radius = 40
 const circumference = 2 * Math.PI * radius
 
-function CircularScore({ score, className }: CircularScoreProps) {
+function CircularScore({ score, className, indicatorClassName }: CircularScoreProps) {
   const offset = circumference - (score / 100) * circumference
 
   return (
@@ -20,7 +21,7 @@ function CircularScore({ score, className }: CircularScoreProps) {
           cy="50"
           r={radius}
           fill="none"
-          className="stroke-primary"
+          className={cn("stroke-primary transition-[stroke-dashoffset]", indicatorClassName)}
           strokeWidth="8"
           strokeLinecap="round"
           strokeDasharray={circumference}

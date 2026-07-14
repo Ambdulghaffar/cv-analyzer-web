@@ -5,7 +5,7 @@ export const breadcrumbLabels: Record<string, string> = {
   analyze: "Analyser un CV",
   history: "Historique",
   letters: "Lettres de motivation",
-  rank: "Classement des candidats",
+  rank: "Comparer des candidats",
   offers: "Offres d'emploi",
   settings: "Paramètres",
 }
