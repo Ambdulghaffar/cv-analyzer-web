@@ -515,6 +515,12 @@ function SidebarMenuButton({
     props: mergeProps<"button">(
       {
         className: cn(sidebarMenuButtonVariants({ variant, size }), className),
+        // Base UI's Tooltip/DropdownMenu triggers assign an id via React's
+        // useId(), which currently mismatches between SSR and hydration when
+        // composed through a `render` prop on Next.js 15.5 + React 19.2
+        // (https://github.com/vercel/next.js/issues/43033). The id is
+        // internal-only (ARIA wiring), so suppress the harmless warning.
+        suppressHydrationWarning: true,
       },
       props
     ),
