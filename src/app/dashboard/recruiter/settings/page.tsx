@@ -1,13 +1,21 @@
-import { Settings } from "lucide-react"
+import { redirect } from "next/navigation"
 
-export default function RecruiterSettingsPage() {
-  return (
-    <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">
-      <Settings className="size-10 text-muted-foreground" />
-      <h1 className="text-lg font-semibold">Bientôt disponible</h1>
-      <p className="max-w-sm text-sm text-muted-foreground">
-        La gestion des paramètres de votre compte arrive prochainement.
-      </p>
-    </div>
-  )
+import { AccountSettingsForm } from "@/components/dashboard/settings/account-settings-form"
+import { ROUTES } from "@/lib/constants"
+import { getCurrentProfile } from "@/lib/supabase/queries"
+import { createClient } from "@/lib/supabase/server"
+
+export default async function RecruiterSettingsPage() {
+  const profile = await getCurrentProfile()
+
+  if (!profile) {
+    redirect(ROUTES.login)
+  }
+
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  return <AccountSettingsForm profile={profile} email={user?.email ?? ""} />
 }

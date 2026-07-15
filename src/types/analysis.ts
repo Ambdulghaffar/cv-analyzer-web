@@ -29,3 +29,20 @@ export interface AnalysisHistoryItem {
   global_score: number
   created_at: string
 }
+
+export interface CandidateRanking {
+  filename: string
+  analysis: AnalysisResult
+}
+
+export interface RankingResult {
+  job_title: string | null
+  candidates: CandidateRanking[]
+}
+
+export interface RankingHistoryItem {
+  id: string
+  job_title: string | null
+  candidate_count: number
+  created_at: string
+}

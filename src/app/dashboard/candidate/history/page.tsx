@@ -40,6 +40,7 @@ export default function CandidateHistoryPage() {
 
   useEffect(() => {
     if (!selectedId) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setDetail(null)
       return
     }
