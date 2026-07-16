@@ -2,6 +2,11 @@ import { createClient } from "@/lib/supabase/server"
 import type { AnalysisHistoryItem, RankingHistoryItem } from "@/types/analysis"
 import type { JobOffer } from "@/types/offer"
 
+const API_URL =
+  process.env.INTERNAL_API_URL ??
+  process.env.NEXT_PUBLIC_API_URL ??
+  "http://localhost:8000"
+
 async function serverAuthHeaders() {
   const supabase = await createClient()
   const {
@@ -18,7 +23,7 @@ export async function getAnalysisHistoryServer(): Promise<AnalysisHistoryItem[]>
   if (!headers) return []
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/analyze/history`,
+    `${API_URL}/api/analyze/history`,
     { headers, cache: "no-store" }
   )
 
@@ -32,7 +37,7 @@ export async function getRankingHistoryServer(): Promise<RankingHistoryItem[]> {
   if (!headers) return []
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/rank/history`,
+    `${API_URL}/api/rank/history`,
     { headers, cache: "no-store" }
   )
 
@@ -45,7 +50,7 @@ export async function listOffersServer(): Promise<JobOffer[]> {
   const headers = await serverAuthHeaders()
   if (!headers) return []
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/offers`, {
+  const response = await fetch(`${API_URL}/api/offers`, {
     headers,
     cache: "no-store",
   })
