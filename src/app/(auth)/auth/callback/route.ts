@@ -3,8 +3,10 @@ import { NextResponse, type NextRequest } from "next/server"
 import { createClient } from "@/lib/supabase/server"
 import { ROUTES } from "@/lib/constants"
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+
 export async function GET(request: NextRequest) {
-  const { searchParams, origin } = new URL(request.url)
+  const { searchParams } = new URL(request.url)
   const code = searchParams.get("code")
 
   if (code) {
@@ -19,14 +21,14 @@ export async function GET(request: NextRequest) {
         .single()
 
       if (!profile?.role_selected) {
-        return NextResponse.redirect(`${origin}${ROUTES.onboardingRole}`)
+        return NextResponse.redirect(`${SITE_URL}${ROUTES.onboardingRole}`)
       }
 
       return NextResponse.redirect(
-        `${origin}${profile.role === "recruiter" ? ROUTES.dashboard.recruiter : ROUTES.dashboard.candidate}`
+        `${SITE_URL}${profile.role === "recruiter" ? ROUTES.dashboard.recruiter : ROUTES.dashboard.candidate}`
       )
     }
   }
 
-  return NextResponse.redirect(`${origin}${ROUTES.login}?error=auth_callback_failed`)
+  return NextResponse.redirect(`${SITE_URL}${ROUTES.login}?error=auth_callback_failed`)
 }
